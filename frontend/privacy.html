@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Notice - WhoIsThat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>WhoIsThat</h1>
+    <p>Privacy Notice</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Anonymous Tracking Only</h2>
+      <p>WhoIsThat collects only anonymous analytics to understand visitor patterns. We do <strong>not</strong> attempt to identify real users.</p>
+    </section>
+
+    <section>
+      <h2>What We Collect</h2>
+      <ul>
+        <li><strong>IP address</strong> – hashed (SHA-256) before storage. We cannot recover the original IP.</li>
+        <li><strong>Device type</strong> – mobile, desktop, or tablet.</li>
+        <li><strong>Browser & OS</strong> – from User-Agent (e.g. Chrome 120, Windows 10).</li>
+        <li><strong>Screen resolution</strong> – e.g. 1920×1080.</li>
+        <li><strong>Page URL</strong> – the page you visited.</li>
+        <li><strong>Referrer</strong> – where you came from (or "Direct").</li>
+        <li><strong>Approximate location</strong> – country, region, city from IP (not precise).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What We Do Not Collect</h2>
+      <ul>
+        <li>Names, emails, phone numbers, or other personal identifiers</li>
+        <li>Fingerprints or device IDs</li>
+        <li>Precise geolocation</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Purpose</h2>
+      <p>Analytics are used to understand traffic patterns and improve content. Visit counts help distinguish new vs. returning visitors.</p>
+    </section>
+
+    <section>
+      <h2>Legal & Ethical</h2>
+      <p>This system is designed to be legal and privacy-aware. Use it only on sites you control and where visitors reasonably expect analytics. Comply with applicable laws (e.g. GDPR, CCPA) and disclose tracking in your own privacy policy.</p>
+    </section>
+
+    <section>
+      <p><a href="index.html">&larr; Back to home</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; WhoIsThat. Anonymous analytics only.</p>
+  </footer>
+
+  <script src="tracker.js"></script>
+  <script>WhoIsThat.init({ endpoint: '/track-visit' });</script>
+</body>
+</html>

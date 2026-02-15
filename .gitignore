@@ -1,0 +1,10 @@
+# Environment (contains secrets)
+backend/.env
+
+# Dependencies
+backend/node_modules
+
+# SQLite DB (optional: remove if you want to commit it)
+backend/db/*.db
+backend/db/*.db-wal
+backend/db/*.db-shm

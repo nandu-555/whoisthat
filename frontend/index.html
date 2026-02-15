@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhoIsThat - Visitor Tracking Demo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>WhoIsThat</h1>
+    <p>Anonymous visitor analytics demo</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Welcome</h2>
+      <p>This page demonstrates the WhoIsThat tracking system. When you visit, an anonymous analytics event is sent to the backend.</p>
+      <ul>
+        <li>No personal data collected</li>
+        <li>IP addresses are hashed before storage</li>
+        <li>Device, browser, and location are anonymized</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Privacy</h2>
+      <p><a href="privacy.html">Read our privacy notice</a> for details on how anonymous tracking works.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; WhoIsThat. Anonymous analytics only.</p>
+  </footer>
+
+  <!-- Lightweight tracker - no UI indicators -->
+  <script src="tracker.js"></script>
+  <script>
+    // Initialize tracker with your backend URL
+    WhoIsThat.init({ endpoint: '/track-visit' });
+  </script>
+</body>
+</html>
