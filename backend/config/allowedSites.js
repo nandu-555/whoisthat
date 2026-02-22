@@ -12,21 +12,41 @@ const allowedSites = [
       'http://localhost:3000',
       'http://127.0.0.1:3000',
       'https://whoisthat.onrender.com',
-      'https://github.com/nandu-555/VD-surprise',
-      'https://whoisthat-35n9.onrender.com/', // Replace with your Render frontend URL if different
+      'https://whoisthat-35n9.onrender.com',
     ],
   },
-  // Example: add more sites like this:
-  // {
-  //   siteId: 'portfolio',
-  //   siteName: 'Portfolio Website',
-  //   domains: ['https://myportfolio.com', 'https://www.myportfolio.com'],
-  // },
-  // {
-  //   siteId: 'blog',
-  //   siteName: 'Tech Blog',
-  //   domains: ['https://myblog.com'],
-  // },
+  {
+    siteId: 'portfolio',
+    siteName: 'Portfolio Website',
+    domains: [
+      'https://nandu-555.github.io',
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      'https://whoisthat.onrender.com',
+      'https://whoisthat-35n9.onrender.com',
+    ],
+  },
+  {
+    siteId: 'blog',
+    siteName: 'Tech Blog',
+    domains: [
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      'https://whoisthat.onrender.com',
+      'https://whoisthat-35n9.onrender.com',
+    ],
+  },
+  {
+    siteId: 'vd-surprise',
+    siteName: 'Valentine Surprise',
+    domains: [
+      'https://nandu-555.github.io',
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      'https://whoisthat.onrender.com',
+      'https://whoisthat-35n9.onrender.com',
+    ],
+  },
 ];
 
 /**
