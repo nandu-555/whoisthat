@@ -1,6 +1,6 @@
 /**
  * Telegram Bot Integration
- * Sends visitor alerts to a Telegram chat.
+ * Sends multi-site visitor alerts to a Telegram chat.
  * Uses environment variables for bot token and chat ID.
  */
 
@@ -8,7 +8,7 @@ const https = require('https');
 
 /**
  * Send a message to Telegram
- * @param {string} message - Plain text or Markdown message
+ * @param {string} message - Plain text or HTML message
  * @returns {Promise<boolean>} Success
  */
 async function sendTelegramMessage(message) {
@@ -58,39 +58,70 @@ async function sendTelegramMessage(message) {
 }
 
 /**
- * Format and send a new visitor alert
+ * Format location line for alerts
  */
-async function sendNewVisitorAlert(visitor) {
-  const lines = [
-    '🆕 <b>New Visitor</b>',
-    '',
-    `📍 <b>Location:</b> ${[visitor.city, visitor.region, visitor.country].filter(Boolean).join(', ') || 'Unknown'}`,
-    `📱 <b>Device:</b> ${visitor.deviceType} | ${visitor.os}`,
-    `🌐 <b>Browser:</b> ${visitor.browser}`,
-    `📐 <b>Screen:</b> ${visitor.screenWidth || '?'}×${visitor.screenHeight || '?'}`,
-    `🔗 <b>Page:</b> ${visitor.pageUrl || '-'}`,
-    `↩️ <b>Referrer:</b> ${visitor.referrer || 'Direct'}`,
-    `⏰ <b>Time:</b> ${new Date().toLocaleString()}`,
-  ];
-  return sendTelegramMessage(lines.join('\n'));
+function formatLocation(visitor) {
+  const parts = [visitor.city, visitor.region, visitor.country].filter(Boolean);
+  return parts.length ? parts.join(', ') : 'Unknown';
 }
 
 /**
- * Format and send a returning visitor alert
+ * Get page path for display (e.g. /projects from full URL)
+ */
+function getPagePath(pageUrl) {
+  if (!pageUrl) return '-';
+  try {
+    return new URL(pageUrl).pathname || pageUrl;
+  } catch {
+    return pageUrl;
+  }
+}
+
+/**
+ * WhoIsThat alert header and site block (multi-site format)
+ * Example: Site, Site ID, Domain, Page, Location, Device, Browser, Visit Count
+ */
+function formatSiteBlock(visitor) {
+  return [
+    '🌐 <b>WhoIsThat Alert</b>',
+    '',
+    `🏷 <b>Site:</b> ${visitor.siteName || 'Unknown'}`,
+    `🔑 <b>Site ID:</b> ${visitor.siteId || '-'}`,
+    `🌍 <b>Domain:</b> ${visitor.domain || '-'}`,
+    `📄 <b>Page:</b> ${getPagePath(visitor.pageUrl)}`,
+    `📍 <b>Location:</b> ${formatLocation(visitor)}`,
+    `📱 <b>Device:</b> ${visitor.deviceType || 'Unknown'}`,
+    `🌐 <b>Browser:</b> ${visitor.browser || 'Unknown'}`,
+    `🔁 <b>Visit Count:</b> ${visitor.visitCount ?? 1}`,
+    '',
+    `⏰ <b>Time:</b> ${new Date().toLocaleString()}`,
+  ].join('\n');
+}
+
+/**
+ * Format and send a new visitor alert (multi-site)
+ */
+async function sendNewVisitorAlert(visitor) {
+  const message = [
+    `📊 <b>Visit #${visitCount}</b>`,
+    '🆕 <b>New Visitor</b>',
+    '',
+    ...formatSiteBlock(visitor).split('\n').slice(2),
+  ].join('\n');
+  return sendTelegramMessage(message);
+}
+
+/**
+ * Format and send a returning visitor alert (multi-site)
  */
 async function sendReturningVisitorAlert(visitor, visitCount) {
-  const lines = [
+  const v = { ...visitor, visitCount };
+  const message = [
     '🔄 <b>Returning Visitor</b>',
-    `📊 <b>Visit #${visitCount}</b>`,
     '',
-    `📍 <b>Location:</b> ${[visitor.city, visitor.region, visitor.country].filter(Boolean).join(', ') || 'Unknown'}`,
-    `📱 <b>Device:</b> ${visitor.deviceType} | ${visitor.os}`,
-    `🌐 <b>Browser:</b> ${visitor.browser}`,
-    `🔗 <b>Page:</b> ${visitor.pageUrl || '-'}`,
-    `↩️ <b>Referrer:</b> ${visitor.referrer || 'Direct'}`,
-    `⏰ <b>Time:</b> ${new Date().toLocaleString()}`,
-  ];
-  return sendTelegramMessage(lines.join('\n'));
+    ...formatSiteBlock(v).split('\n').slice(2),
+  ].join('\n');
+  return sendTelegramMessage(message);
 }
 
 module.exports = {
