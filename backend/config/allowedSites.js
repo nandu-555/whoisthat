@@ -12,6 +12,7 @@ const allowedSites = [
       'http://localhost:3000',
       'http://127.0.0.1:3000',
       'https://whoisthat.onrender.com',
+      'https://github.com/nandu-555/VD-surprise',
       'https://whoisthat-35n9.onrender.com/', // Replace with your Render frontend URL if different
     ],
   },
